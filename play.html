@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MemeBattle — Play</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo"><div class="logo-dot"></div>MEME BATTLE</div>
+  <div class="header-stats">
+    <div class="hstat"><span class="hstat-lbl">🎮 Games:</span><span class="hstat-val" id="sg">0</span></div>
+    <div class="hstat"><span class="hstat-lbl">👾 Players:</span><span class="hstat-val" id="sp">0</span></div>
+    <div class="hstat"><span class="hstat-lbl">⚡ Top Score:</span><span class="hstat-val" id="st">0</span></div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab-btn" onclick="window.location.href='index.html'" data-page="home">🏠 Home</button>
+  <button class="tab-btn active" data-page="play">🎮 Play</button>
+</nav>
+
+<div class="play-inner">
+
+  <div id="username-screen">
+    <div style="font-size:3.5rem; margin-bottom:20px">⚔️</div>
+    <h2>Enter The Arena</h2>
+    <p style="color:var(--light); margin:10px 0 24px; font-size:1rem; line-height:1.5">
+      Choose your battle name. 5 rounds. Best caption wins.
+    </p>
+    <div class="input-group">
+      <input type="text" id="usernameInput" placeholder="Your callsign..." maxlength="20"/>
+      <button class="btn-primary" onclick="startGame()">Deploy</button>
+    </div>
+    <p style="font-size:0.7rem; color:var(--muted); letter-spacing:1px">5 ROUNDS · TIMED · LEADERBOARD GLORY</p>
+  </div>
+
+  <div id="game-screen">
+    <div class="game-header">
+      <div class="round-info">
+        <div class="label">Round</div>
+        <div class="value"><span id="roundNum">1</span> <span style="font-size:0.8rem; color:var(--muted)">/5</span></div>
+      </div>
+      <div class="score-center">
+        <div class="sn" id="currentScore">0</div>
+        <div class="sl">Points</div>
+      </div>
+      <div class="timer-wrap">
+        <svg width="72" height="72" viewBox="0 0 72 72">
+          <circle class="t-bg" cx="36" cy="36" r="32"/>
+          <circle class="t-prog" cx="36" cy="36" r="32" id="timerRing"/>
+        </svg>
+        <div class="t-num" id="timerNum">30</div>
+      </div>
+    </div>
+
+    <div class="meme-card">
+      <div class="meme-display">
+        <img id="memeImg" class="meme-img" src="" alt="Meme"/>
+        <div class="meme-meta">
+          <span class="meme-tag" id="memeCategory">Category</span>
+          <div class="meme-name-text" id="memeName"></div>
+        </div>
+      </div>
+      <div class="caption-area">
+        <label>// Your Caption</label>
+        <div class="caption-row">
+          <div style="flex:1">
+            <textarea id="captionInput" placeholder="Be funny. Be legendary. Make them LOL..." maxlength="120"></textarea>
+            <div class="char-info"><span id="charCount">0</span> / 120</div>
+          </div>
+          <button class="submit-btn" id="submitBtn" onclick="submitCaption()">
+            <span class="si">🚀</span><span>FIRE</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="voting-panel" id="votingPanel">
+      <h3>// Votes Received</h3>
+      <p style="color:var(--muted); font-size:0.8rem; margin-bottom:2px">Your caption:</p>
+      <div class="submitted-caption" id="submittedCaption"></div>
+      <div class="votes-row">
+        <div class="vote-meter like">
+          <div class="v-icon">👍</div>
+          <div class="v-count" id="likeCount">0</div>
+          <div class="v-label">Likes</div>
+        </div>
+        <div class="vote-meter dislike">
+          <div class="v-icon">👎</div>
+          <div class="v-count" id="dislikeCount">0</div>
+          <div class="v-label">Dislikes</div>
+        </div>
+        <div class="vote-meter funny">
+          <div class="v-icon">😂</div>
+          <div class="v-count" id="funnyCount">0</div>
+          <div class="v-label">LOL'd</div>
+        </div>
+      </div>
+      <div class="score-reveal">
+        <div class="pts" id="roundPoints">+0</div>
+        <div class="pts-label">Points This Round</div>
+        <div class="feedback-msg" id="feedbackMsg"></div>
+      </div>
+      <button class="next-btn" id="nextBtn" onclick="nextRound()">NEXT MEME ▶</button>
+    </div>
+  </div>
+
+  <div id="game-over-screen">
+    <div class="go-card">
+      <span class="go-emoji" id="goEmoji">🎉</span>
+      <div class="go-title">Mission Complete</div>
+      <div class="final-score" id="finalScore">0</div>
+      <div style="color:var(--muted); font-size:0.68rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px">Total Points</div>
+      <div class="rank-badge-display" id="rankBadge"></div>
+      <div class="achievements" id="achList"></div>
+      <div class="rank-msg" id="rankMsg"></div>
+      <button class="pab" onclick="resetGame()">🔄 Play Again</button>
+      <button class="pab outline" onclick="window.location.href='index.html'" style="margin-top:10px">🏆 View Leaderboard</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="play.js"></script>
+<script>
+  const lb = JSON.parse(localStorage.getItem('memeLB') || '[]');
+  document.getElementById('sg').textContent = localStorage.getItem('totalGames') || '0';
+  document.getElementById('sp').textContent = lb.length;
+  document.getElementById('st').textContent = lb.length ? lb[0].score.toLocaleString() : '0';
+</script>
+</body>
+</html>

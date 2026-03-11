@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MemeBattle — Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo"><div class="logo-dot"></div>MEME BATTLE</div>
+  <div class="header-stats">
+    <div class="hstat"><span class="hstat-lbl">🎮 Games:</span><span class="hstat-val" id="sg">0</span></div>
+    <div class="hstat"><span class="hstat-lbl">👾 Players:</span><span class="hstat-val" id="sp">0</span></div>
+    <div class="hstat"><span class="hstat-lbl">⚡ Top Score:</span><span class="hstat-val" id="st">0</span></div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab-btn active" data-page="home">🏠 Home</button>
+  <button class="tab-btn" onclick="window.location.href='play.html'" data-page="play">🎮 Play</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Season 01 · Live Now</div>
+    <h2><span class="line-cyan">CAPTION</span><span class="line-yellow">BATTLES</span></h2>
+    <p class="hero-sub">Write the funniest caption, collect AI votes, and dominate the global leaderboard.</p>
+    <button class="hero-btn" onclick="window.location.href='play.html'">
+      <span>Enter Arena</span><span class="hero-arrow">→</span>
+    </button>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">LOL</div>
+    <div class="hero-card-stack">
+      <div class="ghost-card"></div>
+      <div class="ghost-card"></div>
+    </div>
+    <div class="hero-card">
+      <img class="hero-card-img" src="https://i.imgflip.com/30b1gx.jpg" alt="meme"/>
+      <div class="hero-card-foot">
+        <div class="hero-card-dot"></div>
+        <div class="hero-card-label">Live Round · Caption Now</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="home-lower">
+
+  <div class="how-section">
+    <div class="section-eyebrow">How It Works</div>
+    <div class="section-title">Four steps to glory</div>
+    <div class="steps-timeline">
+      <div class="step-t">
+        <div class="step-t-dot"></div>
+        <div class="step-t-num">01</div>
+        <div class="step-t-text">A random meme template appears on your screen</div>
+      </div>
+      <div class="step-t">
+        <div class="step-t-dot"></div>
+        <div class="step-t-num">02</div>
+        <div class="step-t-text">Write your funniest caption before the 30-second timer expires</div>
+      </div>
+      <div class="step-t">
+        <div class="step-t-dot"></div>
+        <div class="step-t-num">03</div>
+        <div class="step-t-text">AI simulates crowd votes — likes, dislikes &amp; LOLs</div>
+      </div>
+      <div class="step-t">
+        <div class="step-t-dot"></div>
+        <div class="step-t-num">04</div>
+        <div class="step-t-text">Score is calculated from votes + time bonus — climb the board!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-cols">
+
+    <div>
+      <div class="section-eyebrow">Global Rankings</div>
+      <div class="section-title">Leaderboard</div>
+      <div class="lb-inner">
+        <div class="lb-section-head">
+          <h3>🏆 Top Players</h3>
+          <button class="clear-btn" onclick="clearLB()">RESET</button>
+        </div>
+        <div class="lb-cols">
+          <div>Rank</div><div>Player</div><div>Score</div><div class="lb-badge-col">Tier</div>
+        </div>
+        <div id="lbBody"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-eyebrow">Community</div>
+      <div class="section-title">Caption Forum</div>
+      <div class="forum-inner">
+        <div class="forum-card">
+          <div class="forum-card-top"><span class="forum-tag hot">🔥 Hot</span><span class="forum-time">2h ago</span></div>
+          <div class="forum-title">What makes a caption go viral? Tips from top players 🚀</div>
+          <div class="forum-meta"><span>👤 MemeKing99</span><span>💬 47</span><span>❤️ 234</span></div>
+        </div>
+        <div class="forum-card">
+          <div class="forum-card-top"><span class="forum-tag tip">💡 Tip</span><span class="forum-time">5h ago</span></div>
+          <div class="forum-title">Pop culture references = instant votes. Here's the formula!</div>
+          <div class="forum-meta"><span>👤 CaptionPro</span><span>💬 22</span><span>❤️ 189</span></div>
+        </div>
+        <div class="forum-card">
+          <div class="forum-card-top"><span class="forum-tag new">✨ New</span><span class="forum-time">Just now</span></div>
+          <div class="forum-title">Tournament Mode dropping soon — who's ready to compete? 🏆</div>
+          <div class="forum-meta"><span>👤 MemeBattle Team</span><span>💬 5</span><span>❤️ 312</span></div>
+        </div>
+        <div class="forum-card">
+          <div class="forum-card-top"><span class="forum-tag hot">🔥 Hot</span><span class="forum-time">1d ago</span></div>
+          <div class="forum-title">Best caption I've ever written — share yours below! 😂</div>
+          <div class="forum-meta"><span>👤 LaughFactory</span><span>💬 89</span><span>❤️ 540</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="home.js"></script>
+</body>
+</html>
